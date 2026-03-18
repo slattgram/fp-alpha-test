@@ -1,8 +1,18 @@
 <app-table-view>
   <app-table-view-header label="Clients">
-    <app-create-client />
+    <app-create-client (clientCreated)="fetchClients()" />
   </app-table-view-header>
-  <p-table [value]="clients()" [paginator]="true" [rows]="10">
+  <p-table #dt1 [value]="clients()" [globalFilterFields]="['name']" [paginator]="true" [rows]="10">
+    <ng-template #caption>
+      <div class="flex">
+        <input
+          pInputText
+          type="text"
+          placeholder="Search name"
+          (input)="dt1.filterGlobal($event.target.value, 'contains')"
+        />
+      </div>
+    </ng-template>
     <ng-template #header>
       <tr>
         <th>id</th>

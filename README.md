@@ -10,5 +10,4 @@ Used PrimeNg for quick set up of the UI. Overall I am a big fan of using librari
 
 ## AI usage
 
-Overall I do rely on AI to speed up the development, but for this test I decided to not use it for code generation jsut for the sake of transparency. 
-I only used it for generating the design for it.
+Generally I do use AI for code generation, but here I didn't use it much for the sake of transparency. It was mostly used for smarter code completion rather than generation.

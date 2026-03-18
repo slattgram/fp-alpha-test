@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, output, signal } from '@angular/core';
 import { Button } from 'primeng/button';
 import { Dialog } from 'primeng/dialog';
 import { CreateClientForm } from './create-client-form/create-client-form';
@@ -11,4 +11,6 @@ import { CreateClientForm } from './create-client-form/create-client-form';
 })
 export class CreateClient {
   readonly visible = signal(false);
+
+  clientCreated = output();
 }

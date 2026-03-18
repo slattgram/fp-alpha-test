@@ -1,0 +1,10 @@
+<p-button label="Create post" (onClick)="visible.set(true)" />
+<p-dialog
+  header="Create post"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [visible]="visible()"
+  (visibleChange)="visible.set($event)"
+>
+  <app-create-post-form (postCreated)="visible.set(false); postCreated.emit()" />
+</p-dialog>

@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TClient, TPost } from '../../../shared/types/client';
-import { PostsWidget } from './posts-widget/posts-widget';
+import { Posts } from '../../posts/posts';
 import { ClientInformationWidget } from './client-information-widget/client-information-widget';
 import { DetailViewContent } from '../../../shared/components/detail-view/detail-view-content/detail-view-content';
 import { DetailView } from '../../../shared/components/detail-view/detail-view';
@@ -9,7 +9,7 @@ import { DetailViewHeader } from '../../../shared/components/detail-view/detail-
 
 @Component({
   selector: 'app-client',
-  imports: [PostsWidget, ClientInformationWidget, DetailViewContent, DetailView, DetailViewHeader],
+  imports: [Posts, ClientInformationWidget, DetailViewContent, DetailView, DetailViewHeader],
   templateUrl: './client.html',
   styleUrl: './client.scss',
 })

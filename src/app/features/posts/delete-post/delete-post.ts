@@ -1,8 +1,8 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { Button } from 'primeng/button';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
-import { PostsService } from '../../../../../shared/services/posts-service';
+import { PostsService } from '../../../shared/services/posts-service';
 
 @Component({
   selector: 'app-delete-post',
@@ -16,6 +16,8 @@ export class DeletePost {
   private confirmationService = inject(ConfirmationService);
 
   readonly id = input.required<number>();
+
+  delete = output();
 
   confirmDelete() {
     this.confirmationService.confirm({
@@ -35,11 +37,9 @@ export class DeletePost {
       },
 
       accept: () => {
-        this.postsService.deletePost(this.id()).subscribe(() => console.log('Great success'));
+        this.postsService.deletePost(this.id()).subscribe(() => this.delete.emit());
       },
-      reject: () => {
-        console.log('Reject');
-      },
+      reject: () => {},
     });
   }
 }

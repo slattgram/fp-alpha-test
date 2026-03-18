@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { DeletePost } from '../delete-post/delete-post';
 
 @Component({
@@ -13,4 +13,6 @@ export class Post {
   readonly value = input.required<string>();
 
   readonly id = input.required<number>();
+
+  delete = output();
 }

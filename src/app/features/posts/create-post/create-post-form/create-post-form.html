@@ -1,0 +1,30 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <app-form-input
+    id="title"
+    label="Title"
+    [errors]="submitted() && (form.get('title').errors | error)"
+  >
+    <input
+      fluid
+      pInputText
+      formControlName="title"
+      type="text"
+      id="title"
+      [invalid]="isInvalid('title')"
+    />
+  </app-form-input>
+  <app-form-input
+    id="content"
+    label="Content"
+    [errors]="submitted() && (form.get('body').errors | error)"
+  >
+    <textarea
+      fluid
+      pInputTextarea
+      formControlName="body"
+      id="body"
+      [invalid]="isInvalid('body')"
+    ></textarea>
+  </app-form-input>
+  <p-button type="submit" label="Create" />
+</form>

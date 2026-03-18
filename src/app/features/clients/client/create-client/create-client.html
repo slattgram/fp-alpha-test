@@ -6,5 +6,5 @@
   [visible]="visible()"
   (visibleChange)="visible.set($event)"
 >
-  <app-create-client-form (clientCreated)="visible.set(false)" />
+  <app-create-client-form (clientCreated)="visible.set(false); clientCreated.emit()" />
 </p-dialog>
