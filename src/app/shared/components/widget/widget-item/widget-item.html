@@ -1,0 +1,12 @@
+<div>{{ label() }}</div>
+@switch (type()) {
+  @case ('phone') {
+    <a href="tel:{{ value() }}">{{ value() }}</a>
+  }
+  @case ('email') {
+    <a href="mailto:{{ value() }}">{{ value() }}</a>
+  }
+  @default {
+    <div>{{ value() }}</div>
+  }
+}

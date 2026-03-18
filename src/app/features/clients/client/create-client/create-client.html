@@ -1,0 +1,10 @@
+<p-button label="Create client" (onClick)="visible.set(true)" />
+<p-dialog
+  header="Create client"
+  [modal]="true"
+  [style]="{ width: '50vw' }"
+  [visible]="visible()"
+  (visibleChange)="visible.set($event)"
+>
+  <app-create-client-form (clientCreated)="visible.set(false)" />
+</p-dialog>

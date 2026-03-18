@@ -1,0 +1,7 @@
+<p-iftalabel>
+  <ng-content></ng-content>
+  <label>{{ label() }}</label>
+  @if (errors()) {
+    <small>{{ errors() }}</small>
+  }
+</p-iftalabel>

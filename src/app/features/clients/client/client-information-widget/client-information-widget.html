@@ -1,0 +1,6 @@
+<app-widget>
+  <app-widget-header label="Client information" />
+  <app-widget-item label="Email" type="email" [value]="client().email" />
+  <app-widget-item label="Phone" type="phone" [value]="client().phone" />
+  <app-widget-item label="Creation date" [value]="client().creation_date | relativeTime" />
+</app-widget>

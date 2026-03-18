@@ -1,0 +1,8 @@
+<app-detail-view>
+  <app-detail-view-header routerLink="/clients" [label]="client().name" />
+
+  <app-detail-view-content>
+    <app-client-information-widget [client]="client()" />
+    <app-posts-widget [posts]="posts()" />
+  </app-detail-view-content>
+</app-detail-view>

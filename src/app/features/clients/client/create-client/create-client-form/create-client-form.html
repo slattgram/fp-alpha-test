@@ -1,0 +1,45 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <app-form-input
+    id="name"
+    label="Name"
+    [errors]="submitted() && (form.get('name').errors | error)"
+  >
+    <input
+      fluid
+      pInputText
+      formControlName="name"
+      type="text"
+      id="name"
+      [invalid]="isInvalid('name')"
+    />
+  </app-form-input>
+  <app-form-input
+    id="email"
+    label="Email"
+    [errors]="submitted() && (form.get('email').errors | error)"
+  >
+    <input
+      fluid
+      pInputText
+      formControlName="email"
+      type="email"
+      id="email"
+      [invalid]="isInvalid('email')"
+    />
+  </app-form-input>
+  <app-form-input
+    id="phone"
+    label="Phone"
+    [errors]="submitted() && (form.get('phone').errors | error)"
+  >
+    <input
+      fluid
+      pInputText
+      formControlName="phone"
+      type="tel"
+      id="phone"
+      [invalid]="isInvalid('phone')"
+    />
+  </app-form-input>
+  <p-button type="submit" label="Create" />
+</form>

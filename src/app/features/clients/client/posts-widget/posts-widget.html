@@ -1,0 +1,6 @@
+<app-widget>
+  <app-widget-header label="Notes" />
+  @for (post of posts(); track post.id) {
+    <app-post [label]="post.title" [value]="post.body" [id]="post.id" />
+  }
+</app-widget>

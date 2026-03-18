@@ -1,0 +1,29 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: white;
+  &:not(:last-child) {
+    border-bottom: 1px solid #E5E5E5;
+  }
+}
+
+.post {
+  &-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  &-label {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #333;
+
+  }
+  &-value {
+    font-size: 1rem;
+    color: #555;
+  }
+}

@@ -1,59 +1,14 @@
 # FpAlphaTest
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.4.
+## Addintion libraries rundown
 
-## Development server
+### Eslint
+Added my default eslint configuration that I use for all my projects, so the decisions to add certain rules weren't made for this project in particular.
 
-To start a local development server, run:
+### PrimeNg
+Used PrimeNg for quick set up of the UI. Overall I am a big fan of using libraries first instead of using the custom solutions where it is not needed. Particularly table-related tasks like pagination/filtering etc.
 
-```bash
-ng serve
-```
+## AI usage
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Overall I do rely on AI to speed up the development, but for this test I decided to not use it for code generation jsut for the sake of transparency. 
+I only used it for generating the design for it.
