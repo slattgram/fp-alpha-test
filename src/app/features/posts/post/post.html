@@ -1,5 +1,6 @@
-<div class="post-header">
-  <div class="post-label">{{ label() }}</div>
-  <app-delete-post [id]="id()" (delete)="delete.emit()" />
-</div>
-<div class="post-value">{{ value() }}</div>
+<p-card [header]="label()">
+  <div class="post-value">{{ value() }}</div>
+  <ng-template #footer>
+    <app-delete-post [id]="id()" />
+  </ng-template>
+</p-card>

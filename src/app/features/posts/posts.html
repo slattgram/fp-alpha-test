@@ -3,6 +3,12 @@
     <app-create-post (postCreated)="fetchPosts()" />
   </app-widget-header>
   @for (post of posts(); track post.id) {
-    <app-post [label]="post.title" [value]="post.body" [id]="post.id" (delete)="fetchPosts()" />
+    <app-post
+      [label]="post.title"
+      [value]="post.body"
+      [id]="post.id"
+      (delete)="showDeletedMessage(); fetchPosts()"
+    />
   }
 </app-widget>
+<p-toast />

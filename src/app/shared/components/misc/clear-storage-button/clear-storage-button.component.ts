@@ -1,6 +1,6 @@
 import { Component, DOCUMENT, inject } from '@angular/core';
 import { Button } from 'primeng/button';
-import { clearAllLocalStorage } from '../../utils/local-storage-utils';
+import { clearAllLocalStorage } from '../../../utils/local-storage-utils';
 
 @Component({
   selector: 'app-clear-storage-button',

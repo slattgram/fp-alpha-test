@@ -1,4 +1,6 @@
 <p-button label="Create client" (onClick)="visible.set(true)" />
+<p-toast />
+
 <p-dialog
   header="Create client"
   [modal]="true"
@@ -6,5 +8,5 @@
   [visible]="visible()"
   (visibleChange)="visible.set($event)"
 >
-  <app-create-client-form (clientCreated)="visible.set(false); clientCreated.emit()" />
+  <app-create-client-form (clientCreated)="clientCreatedHandler()" />
 </p-dialog>

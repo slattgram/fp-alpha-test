@@ -2,10 +2,10 @@ import { Component, inject, output, signal, DestroyRef } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Button } from 'primeng/button';
 import { InputText } from 'primeng/inputtext';
-import { ClientsService } from '../../../../../shared/services/clients-service';
-import { FormInput } from '../../../../../shared/components/form-input/form-input';
-import { ErrorPipe } from '../../../../../shared/pipes/error-pipe';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ClientsService } from '../../../../shared/services/clients-service';
+import { FormInput } from '../../../../shared/components/form-input/form-input';
+import { ErrorPipe } from '../../../../shared/pipes/error-pipe';
 
 @Component({
   selector: 'app-create-client-form',
@@ -15,7 +15,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class CreateClientForm {
   private fb = inject(UntypedFormBuilder);
+
   private clientsService = inject(ClientsService);
+
   private destroyRef = inject(DestroyRef);
 
   clientCreated = output<boolean>();
@@ -37,9 +39,12 @@ export class CreateClientForm {
     this.submitted.set(true);
 
     if (this.form.valid) {
-      this.clientsService.createClient(this.form.value).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => {
-        this.clientCreated.emit(true);
-      });
+      this.clientsService
+        .createClient(this.form.value)
+        .pipe(takeUntilDestroyed(this.destroyRef))
+        .subscribe(() => {
+          this.clientCreated.emit(true);
+        });
     }
   }
 }

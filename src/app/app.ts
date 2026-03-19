@@ -1,11 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Toast } from 'primeng/toast';
-import { ClearStorageButtonComponent } from './shared/components/clear-storage-button/clear-storage-button.component';
+import { Misc } from './shared/components/misc/misc';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, ClearStorageButtonComponent, Toast],
+  imports: [RouterOutlet, Misc],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

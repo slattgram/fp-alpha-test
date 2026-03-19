@@ -2,8 +2,8 @@ import { Component, inject, input, output, DestroyRef } from '@angular/core';
 import { Button } from 'primeng/button';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
-import { PostsService } from '../../../shared/services/posts-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { PostsService } from '../../../shared/services/posts-service';
 
 @Component({
   selector: 'app-delete-post',
@@ -13,7 +13,9 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class DeletePost {
   private postsService = inject(PostsService);
+
   private confirmationService = inject(ConfirmationService);
+
   private destroyRef = inject(DestroyRef);
 
   readonly id = input.required<number>();
@@ -38,7 +40,12 @@ export class DeletePost {
       },
 
       accept: () => {
-        this.postsService.deletePost(this.id()).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.delete.emit());
+        this.postsService
+          .deletePost(this.id())
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe(() => {
+            this.delete.emit();
+          });
       },
       reject: () => {},
     });

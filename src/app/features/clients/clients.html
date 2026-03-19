@@ -2,7 +2,14 @@
   <app-table-view-header label="Clients">
     <app-create-client (clientCreated)="fetchClients()" />
   </app-table-view-header>
-  <p-table #dt1 [value]="clients()" [globalFilterFields]="['name']" [paginator]="true" [rows]="10">
+  <p-table
+    #dt1
+    [style]="{ height: '100%', overflow: 'auto' }"
+    [value]="clients()"
+    [globalFilterFields]="['name']"
+    [paginator]="true"
+    [rows]="10"
+  >
     <ng-template #caption>
       <div class="flex">
         <input

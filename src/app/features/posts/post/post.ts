@@ -1,9 +1,10 @@
 import { Component, input, output } from '@angular/core';
+import { Card } from 'primeng/card';
 import { DeletePost } from '../delete-post/delete-post';
 
 @Component({
   selector: 'app-post',
-  imports: [DeletePost],
+  imports: [DeletePost, Card],
   templateUrl: './post.html',
   styleUrl: './post.scss',
 })

@@ -2,13 +2,13 @@ import { Component, signal, inject, OnInit, DestroyRef } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { RouterLink } from '@angular/router';
 import { InputText } from 'primeng/inputtext';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ClientsService } from '../../shared/services/clients-service';
 import { TClient } from '../../shared/types/client';
 import { RelativeTimePipe } from '../../shared/pipes/relative-time-pipe';
-import { CreateClient } from './client/create-client/create-client';
+import { CreateClient } from './create-client/create-client';
 import { TableViewHeader } from '../../shared/components/table-view/table-view-header/table-view-header';
 import { TableView } from '../../shared/components/table-view/table-view';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-clients',
@@ -26,6 +26,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class Clients implements OnInit {
   readonly clientsService = inject(ClientsService);
+
   private destroyRef = inject(DestroyRef);
 
   readonly clients = signal<TClient[]>([]);
@@ -35,8 +36,11 @@ export class Clients implements OnInit {
   }
 
   fetchClients() {
-    this.clientsService.getClients().pipe(takeUntilDestroyed(this.destroyRef)).subscribe((res) => {
-      this.clients.set(res);
-    });
+    this.clientsService
+      .getClients()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((res) => {
+        this.clients.set(res);
+      });
   }
 }
