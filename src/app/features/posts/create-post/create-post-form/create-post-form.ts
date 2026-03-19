@@ -1,4 +1,4 @@
-import { Component, inject, output, signal } from '@angular/core';
+import { Component, inject, output, signal, DestroyRef } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Textarea } from 'primeng/textarea';
 import { InputText } from 'primeng/inputtext';
@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PostsService } from '../../../../shared/services/posts-service';
 import { FormInput } from '../../../../shared/components/form-input/form-input';
 import { ErrorPipe } from '../../../../shared/pipes/error-pipe';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-create-post-form',
@@ -16,10 +17,9 @@ import { ErrorPipe } from '../../../../shared/pipes/error-pipe';
 })
 export class CreatePostForm {
   private route = inject(ActivatedRoute);
-
   private fb = inject(UntypedFormBuilder);
-
   private postsService = inject(PostsService);
+  private destroyRef = inject(DestroyRef);
 
   postCreated = output<boolean>();
 
@@ -43,6 +43,7 @@ export class CreatePostForm {
     if (this.form.valid) {
       this.postsService
         .createPost({ ...this.form.value, userId: this.clientId() })
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(() => {
           this.postCreated.emit(true);
         });
