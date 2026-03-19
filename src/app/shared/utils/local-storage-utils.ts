@@ -8,17 +8,30 @@ const STORAGE_KEYS = {
   deletedPostIds: 'deleted_post_ids',
 } as const;
 
+const BASE_IDS = {
+  clients: 1000,
+  posts: 2000,
+} as const;
+
 type StorageType = keyof typeof STORAGE_KEYS;
 
 export const getLocalItems = <T extends LocalStorageItem>(type: StorageType): T[] => {
-  const stored = localStorage.getItem(STORAGE_KEYS[type]);
-  return stored ? JSON.parse(stored) : [];
+  try {
+    const stored = localStorage.getItem(STORAGE_KEYS[type]);
+    return stored ? JSON.parse(stored) : [];
+  } catch {
+    return [];
+  }
 };
 
 export const saveLocalItem = <T extends LocalStorageItem>(type: StorageType, item: T): void => {
-  const localItems = getLocalItems<T>(type);
-  localItems.push(item);
-  localStorage.setItem(STORAGE_KEYS[type], JSON.stringify(localItems));
+  try {
+    const localItems = getLocalItems<T>(type);
+    localItems.push(item);
+    localStorage.setItem(STORAGE_KEYS[type], JSON.stringify(localItems));
+  } catch {
+    // Silent fail - could add logging here
+  }
 };
 
 export const mergeItems = <T extends LocalStorageItem>(apiItems: T[], localItems: T[]): T[] => {
@@ -26,13 +39,10 @@ export const mergeItems = <T extends LocalStorageItem>(apiItems: T[], localItems
   return merged.sort((a, b) => a.id - b.id);
 };
 
-export const getNextLocalId = <T extends LocalStorageItem>(
-  type: StorageType,
-  baseId = 1000,
-): number => {
+export const getNextLocalId = <T extends LocalStorageItem>(type: StorageType): number => {
   const localItems = getLocalItems<T>(type);
   const maxId = Math.max(...localItems.map((item) => item.id), 0);
-  return Math.max(maxId, baseId) + 1;
+  return Math.max(maxId, BASE_IDS[type]) + 1;
 };
 
 export const getLocalItemById = <T extends LocalStorageItem>(
@@ -64,5 +74,15 @@ export const addDeletedPostId = (id: number): void => {
   if (!deletedIds.includes(Number(id))) {
     deletedIds.push(Number(id));
     localStorage.setItem(STORAGE_KEYS.deletedPostIds, JSON.stringify(deletedIds));
+  }
+};
+
+export const clearAllLocalStorage = (): void => {
+  try {
+    Object.values(STORAGE_KEYS).forEach((key) => {
+      localStorage.removeItem(key);
+    });
+  } catch {
+    // Silent fail - could add logging here
   }
 };

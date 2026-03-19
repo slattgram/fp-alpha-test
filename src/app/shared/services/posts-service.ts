@@ -3,16 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { map, combineLatest, of, tap } from 'rxjs';
 import { baseUrl } from '../consts/api';
 import { TPost } from '../types/client';
+import { compareIds, filterByUserId } from '../utils/id-utils';
 import {
-  getLocalPosts,
-  saveLocalPost,
-  mergePosts,
-  getNextLocalPostId,
-  getLocalPostsByUserId,
-  deleteLocalPost,
+  getLocalItems,
+  saveLocalItem,
+  mergeItems,
+  getNextLocalId,
+  deleteLocalItem,
+  getDeletedPostIds,
   addDeletedPostId,
-  filterOutDeletedPosts,
-} from '../utils/local-posts-utils';
+} from '../utils/local-storage-utils';
 
 @Injectable({
   providedIn: 'root',
@@ -22,21 +22,22 @@ export class PostsService {
 
   getClientPosts(id: number) {
     const apiPosts$ = this.http.get<TPost[]>(`${baseUrl}/posts/?userId=${id}`);
-    const localPosts$ = of(getLocalPostsByUserId(id));
+    const localPosts$ = of(filterByUserId(getLocalItems<TPost>('posts'), id));
 
     return combineLatest([apiPosts$, localPosts$]).pipe(
       map(([apiPosts, localPosts]) => {
-        const mergedPosts = mergePosts(apiPosts, localPosts);
-        return filterOutDeletedPosts(mergedPosts);
+        const mergedPosts = mergeItems(apiPosts, localPosts);
+        const deletedIds = getDeletedPostIds();
+        return mergedPosts.filter((post) => !deletedIds.includes(Number(post.id)));
       }),
     );
   }
 
   deletePost(id: number) {
-    const isLocalPost = getLocalPosts().some((post) => Number(post.id) === Number(id));
+    const isLocalPost = getLocalItems<TPost>('posts').some((post) => compareIds(post.id, id));
 
     if (isLocalPost) {
-      deleteLocalPost(id);
+      deleteLocalItem('posts', id);
       return of(null);
     }
     return this.http.delete(`${baseUrl}/posts/${id}`).pipe(tap(() => addDeletedPostId(id)));
@@ -47,10 +48,10 @@ export class PostsService {
       map((createdPost) => {
         const postWithUniqueId = {
           ...createdPost,
-          id: getNextLocalPostId(),
+          id: getNextLocalId('posts'),
         };
 
-        saveLocalPost(postWithUniqueId);
+        saveLocalItem('posts', postWithUniqueId);
         return postWithUniqueId;
       }),
     );

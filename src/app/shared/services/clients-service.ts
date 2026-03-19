@@ -3,17 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { map, combineLatest, of } from 'rxjs';
 import { baseUrl } from '../consts/api';
 import { TClient } from '../types/client';
-
+import { compareIds, findById } from '../utils/id-utils';
 import {
   appendDateToExistingUser,
   appendDateToExistingUsers,
 } from '../utils/append-date-to-existing-users';
 import {
-  getLocalClients,
-  saveLocalClient,
-  mergeClients,
+  getLocalItems,
+  saveLocalItem,
+  mergeItems,
   getNextLocalId,
-} from '../utils/local-clients-utils';
+} from '../utils/local-storage-utils';
 
 @Injectable({
   providedIn: 'root',
@@ -26,20 +26,19 @@ export class ClientsService {
       .get<TClient[]>(`${baseUrl}/users`)
       .pipe(map((res) => appendDateToExistingUsers(res)));
 
-    const localClients$ = of(getLocalClients());
+    const localClients$ = of(getLocalItems<TClient>('clients'));
 
     return combineLatest([apiClients$, localClients$]).pipe(
-      map(([apiClients, localClients]) => mergeClients(apiClients, localClients)),
+      map(([apiClients, localClients]) => mergeItems(apiClients, localClients)),
     );
   }
 
   getClientById(id: number) {
-    const isClientInLocalStorage = getLocalClients().some(
-      (client) => Number(client.id) === Number(id),
-    );
+    const localClients = getLocalItems<TClient>('clients');
+    const isClientInLocalStorage = localClients.some((client) => compareIds(client.id, id));
 
     const client$ = isClientInLocalStorage
-      ? of(getLocalClients().find((client) => Number(client.id) === Number(id)))
+      ? of(findById(localClients, id))
       : this.http.get<TClient>(`${baseUrl}/users/${id}`);
 
     return client$.pipe(
@@ -52,11 +51,11 @@ export class ClientsService {
       map((createdClient) => {
         const clientWithUniqueId = {
           ...createdClient,
-          id: getNextLocalId(),
+          id: getNextLocalId('clients'),
           creation_date: new Date(),
         };
 
-        saveLocalClient(clientWithUniqueId);
+        saveLocalItem('clients', clientWithUniqueId);
 
         return clientWithUniqueId;
       }),

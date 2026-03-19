@@ -1,0 +1,19 @@
+.apple-clear-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: var(--apple-font-size-sm) !important;
+  padding: var(--apple-spacing-sm) var(--apple-spacing-md) !important;
+  border-radius: var(--apple-radius-md) !important;
+  font-weight: 500 !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+
+  &:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: var(--apple-shadow-sm) !important;
+  }
+
+  &:active {
+    transform: translateY(0) !important;
+  }
+}
