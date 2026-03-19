@@ -14,6 +14,9 @@ Generally, I do use AI for code generation, but here I didn't use it much for th
 ## Task about creation date column
 The JSONPlaceholder API doesn't have such a column, so for them it is always empty, but I created a function, appendDateToExistingData (which is not used), in case this is what was expected from me.
 
+## Note about persistence
+I've implemented persistence in a way that new clients and posts are saved to localStorage after JSONPlaceholder returns success, as I was not sure exactly how this persistence will be graded or not, since in the real world, this is purely a backend problem :+1:
+
 ## Folder structure
 I know some teams prefer having guards, resolvers, etc., in a shared folder grouped by their type (so /resolvers contains all resolvers, /guards all guards, /interceptors all interceptors). But I prefer having them near their usage when possible, hence the client guard and resolver are in the features/client folder.
 
