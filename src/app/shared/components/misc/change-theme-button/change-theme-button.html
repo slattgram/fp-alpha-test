@@ -1,1 +1,6 @@
-<p-button label="Dark mode" (click)="toggleDarkMode()" />
+<p-button
+  severity="secondary"
+  text
+  [label]="isDark() ? 'Light mode' : 'Dark mode'"
+  (click)="toggleDarkMode()"
+/>
