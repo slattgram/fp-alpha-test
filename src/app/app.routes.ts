@@ -5,4 +5,9 @@ export const routes: Routes = [
     path: 'clients',
     loadChildren: () => import('./features/clients/clients.routes').then((m) => m.clientsRoutes),
   },
+  {
+    path: '',
+    redirectTo: 'clients',
+    pathMatch: 'full',
+  },
 ];

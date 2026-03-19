@@ -11,6 +11,9 @@ Used PrimeNg for quick set up of the UI. Overall I am a big fan of using librari
 ## AI usage
 Generally I do use AI for code generation, but here I didn't use it much for the sake of transparency. It was mostly used for smarter code completion rather than generation.
 
+## Task about creation date column
+The JSONPlaceholder API doesn't have such column, so for them it is always empty, but I created a function appendDateToExistingData (which is not used) in case this is what was expected from me.
+
 ## Bonus tasks report
 ### Skeleton - Did not do
 Decided not to use it since I opted to use resolvers for data fetches and if there was a need for loading I generally prefer using the spinner

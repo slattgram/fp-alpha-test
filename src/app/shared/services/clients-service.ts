@@ -5,10 +5,6 @@ import { baseUrl } from '../consts/api';
 import { TClient } from '../types/client';
 import { compareIds, findById } from '../utils/id-utils';
 import {
-  appendDateToExistingUser,
-  appendDateToExistingUsers,
-} from '../utils/append-date-to-existing-users';
-import {
   getLocalItems,
   saveLocalItem,
   mergeItems,
@@ -22,9 +18,7 @@ export class ClientsService {
   private http = inject(HttpClient);
 
   getClients() {
-    const apiClients$ = this.http
-      .get<TClient[]>(`${baseUrl}/users`)
-      .pipe(map((res) => appendDateToExistingUsers(res)));
+    const apiClients$ = this.http.get<TClient[]>(`${baseUrl}/users`);
 
     const localClients$ = of(getLocalItems<TClient>('clients'));
 
@@ -37,13 +31,9 @@ export class ClientsService {
     const localClients = getLocalItems<TClient>('clients');
     const isClientInLocalStorage = localClients.some((client) => compareIds(client.id, id));
 
-    const client$ = isClientInLocalStorage
+    return isClientInLocalStorage
       ? of(findById(localClients, id))
       : this.http.get<TClient>(`${baseUrl}/users/${id}`);
-
-    return client$.pipe(
-      map((client) => (isClientInLocalStorage ? client : appendDateToExistingUser(client))),
-    );
   }
 
   createClient(client: Omit<TClient, 'id'>) {

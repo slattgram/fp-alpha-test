@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class RelativeTimePipe implements PipeTransform {
   transform(value: Date | string | number): string {
-    if (!value) return '';
+    if (!value) return '-';
 
     const date = new Date(value);
     const now = new Date();

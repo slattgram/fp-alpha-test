@@ -33,8 +33,14 @@
       <tr [routerLink]="client.id">
         <td>{{ client.id }}</td>
         <td>{{ client.name }}</td>
-        <td>{{ client.email }}</td>
-        <td>{{ client.phone }}</td>
+        <td>
+          <a href="mailto:{{ client.email }}" (click)="$event.stopPropagation()">{{
+            client.email
+          }}</a>
+        </td>
+        <td>
+          <a href="tel:{{ client.email }}" (click)="$event.stopPropagation()">{{ client.phone }}</a>
+        </td>
         <td>{{ client.creation_date | relativeTime }}</td>
       </tr>
     </ng-template>
